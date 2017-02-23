@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+<!--  <script src="lib/onsenui/js/onsenui.min.js"></script> -->
+
+  <link rel="stylesheet" href="components/loader.css">
+ <!-- <link rel="stylesheet" href="lib/onsenui/css/onsenui.css"> -->
+  <!-- <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css"> -->
+  <link rel="stylesheet" href="css/style.css">
+  
+
+  <script>
+    ons.ready(function() {
+      console.log("Onsen UI is ready!");
+    });
+    
+    function addIncome(camera_url) {
+    var money = $("#income-money").val();
+    var body = $("#income-body").val();
+    var cate = $("#income-category").val();
+    var img_tag = "";
+    if (camera_url) {
+        img_tag = "<img src='" + camera_url + "'>";
+    }
+    $.mobile.changePage($("#list-page"));
+    $("#todo-list").append("<li>" + img_tag + "<h2>" + cate + "</h2><h3>&yen;" + money + "</h3><p>" + body + "</p></li>")
+    $("#todo-list").listview('refresh');
+};
+
+    function addSpend(camera_url) {
+    var money = $("#spend-money").val();
+    var body = $("#spend-body").val();
+    var cate = $("#spend-category").val();
+    var img_tag = "";
+    if (camera_url) {
+        img_tag = "<img src='" + camera_url + "'>";
+    }
+    $.mobile.changePage($("#list-page"));
+    $("#todo-list").append("<li>" + img_tag + "<h2>" + cate + "</h2><h3> - &yen;" + money + "</h3><p>" + body + "</p></li>")
+    $("#todo-list").listview('refresh');
+};
+
+  </script>
+  
+  
+</head>
+<body>
+    <div data-role="page" id="list-page">
+        <div data-role="header" data-position="fixed" data-theme="c">
+            <h1>家計簿</h1>
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" id="todo-list"></ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="c">
+            <a href="#spend-page" data-icon="add" class="ui-btn-left">支出</a>
+            <p>&nbsp;</p>
+            <a href="#income-page" data-icon="add" class="ui-btn-right">収入</a>
+        </div>
+        
+    </div>
+
+    <div data-role="page" id="income-page">
+        <div data-role="header" data-position="fixed" data-theme="c">
+            <h1>収入</h1>
+            <a href="#list-page" data-icon="back" class="ui-btn-left">back</a>
+        </div>
+        <div data-role="content">
+            <select id="income-category" name="various">
+                <option value="給料">給料</option>
+                <option value="臨時収入">臨時収入</option>
+                <option value="社会福祉金">社会福祉金</option>
+                <option value="その他">その他</option>
+            </select>
+            <input id="income-money" type="number" pattern="\d*" placeholder="money">
+            <textarea id="income-body" style="height: 8em" placeholder="Description"></textarea>
+            <input id="add-button" type="button" value="Save" onclick="addIncome()">
+            <input id="add-button" type="button" value="Picture And Save" onclick="addTodoPicture()"  data-theme="b">
+        </div>
+    </div>
+    
+        <div data-role="page" id="spend-page">
+        <div data-role="header" data-position="fixed" data-theme="c">
+            <h1>支出</h1>
+            <a href="#list-page" data-icon="back" class="ui-btn-left">back</a>
+        </div>
+        <div data-role="content">
+            <select id="spend-category" name="various">
+                <option value="食費">食費</option>
+                <option value="浪費">浪費</option>
+                <option value="投資">投資</option>
+                <option value="その他">その他</option>
+            </select>
+            <input id="spend-money" type="number" pattern="\d*" placeholder="money">
+            <textarea id="spend-body" style="height: 8em" placeholder="Description"></textarea>
+            <input id="add-button" type="button" value="Save" onclick="addSpend()">
+            <input id="add-button" type="button" value="Picture And Save" onclick="addTodoPicture()"  data-theme="b">
+        </div>
+    </div>
+    
+    
+</body>
+</html>
+
